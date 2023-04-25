@@ -20,7 +20,10 @@ public class Graph : MonoBehaviour
     public enum GraphType
     {
         X3,
-        SinX
+        SinX,
+        SumOfSin,
+        MoveLikeWave,
+        Ripple
     }
 
 
@@ -45,40 +48,33 @@ public class Graph : MonoBehaviour
 
     private void SetPoints()
     {
-        switch (graphType)
-        {
-            case GraphType.X3:
-                SetPointsX3();
-                break;
-            case GraphType.SinX:
-                SetPointsSinX();
-                break;
+        for (int i = 0; i < points.Length; i++) {
+            GameObject point = points[i];
+            Vector3 position = point.transform.localPosition;
+            
+            switch (graphType)
+            {
+                case GraphType.X3:
+                    position.y = FunctionLibrary.X3(position.x);
+                    break;
+                case GraphType.SinX:
+                    position.y = FunctionLibrary.SinX(position.x, Time.time);
+                    break;
+                case GraphType.SumOfSin:
+                    position.y = FunctionLibrary.SumOfSin(position.x, Time.time);
+                    break;
+                case GraphType.MoveLikeWave:
+                    position.y = FunctionLibrary.MoveLikeWave(position.x, Time.time);
+                    break;
+                case GraphType.Ripple:
+                    position.y = FunctionLibrary.Ripple(position.x, Time.time);
+                    break;
+            }
+            
+            point.transform.localPosition = position;
         }
     }
 
-    private void SetPointsX3()
-    {
-        for (int i = 0; i < points.Length; i++) {
-            GameObject point = points[i];
-            Vector3 position = point.transform.localPosition;
-            
-            position.y = position.x * position.x * position.x;
-            
-            point.transform.localPosition = position;
-        } 
-    }
-
-    private void SetPointsSinX()
-    {
-        for (int i = 0; i < points.Length; i++) {
-            GameObject point = points[i];
-            Vector3 position = point.transform.localPosition;
-
-            position.y = Mathf.Sin((position.x + Time.time) * Mathf.PI);    // sin((x + 평행이동)pi)
-            
-            point.transform.localPosition = position;
-        }  
-    }
     private void Awake()
     {
         InitPoints();
