@@ -19,14 +19,15 @@ public static class FunctionLibrary
     }
     public static float SinX(float x, float z, float t)
     { 
-        return Sin((x + t) * PI);               // sin((x + 평행이동)pi)
+        return Sin((x + z + t) * PI);               // sin((x + z + 평행이동)pi)
     }
     
     public static float SumOfSin(float x, float z, float t)
     {
         float y = Sin((x + t) * PI);
-        y += Sin(2f * (x + t) * PI) * 0.5f;     // 두 Sin 함수의 합
-        return y * (2f / 3f);
+        y += Sin(2f * (z + t) * PI) * 0.5f;     // 두 Sin 함수의 합
+        y += Sin((x + z + 0.25f * t) * PI);
+        return y * (1f / 2.5f);
     }
     
     public static float MoveLikeWave(float x, float z, float t)
@@ -38,7 +39,7 @@ public static class FunctionLibrary
 
     public static float Ripple(float x, float z, float t)
     {                                               // Ripple을 아래의 절차를 따라 구현한다.
-        float d = Abs(x);                           // y축 대칭, y값은 원점으로부터의 거리 d(=distance)가 된다. 
+        float d = Sqrt(x * x + z * z);              // 원점으로부터의 거리 d(=distance) 
         float y = Sin((4f * d - t) * PI);           // 주기가 빠른 Sin 함수
         return y / (1f + 10f * d);                  // 원점으로부터의 거리 d에 따라 진폭이 줄어든다.
     }

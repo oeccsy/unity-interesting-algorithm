@@ -334,7 +334,7 @@ MonoBehaviour:
   points: []
   resolution: 50
   range: 1
-  graphType: 2
+  graphType: 4
 --- !u!4 &1791779544
 Transform:
   m_ObjectHideFlags: 0
