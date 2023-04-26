@@ -331,8 +331,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 1370304907513459049, guid: 54c80543858de6847a1a1f8466731de3, type: 3}
+  points: []
   resolution: 50
   range: 1
+  graphType: 2
 --- !u!4 &1791779544
 Transform:
   m_ObjectHideFlags: 0
